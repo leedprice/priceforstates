@@ -53,6 +53,7 @@
               }
               else if (currency == 'CAD') {
                   curSymbol = "C$"
+                  currency = 'USD'; //by default US
               }
               else {
                   curSymbol = "$";
