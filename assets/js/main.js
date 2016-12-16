@@ -45,6 +45,19 @@
           var ratingSystem = $("#ratingSystem").val();
           var type = $('#type').val();
           var givenArea = $('#givenArea').val();
+          
+          var ptype;
+          if(type=='rate'){  ptype="Registration"; }
+          else if(type == 'designRate'){ ptype="Design Review";  }
+          else {  ptype="Construction Review"; }
+          
+          var textnode = document.createTextNode(givenArea+" sq ft");
+          document.getElementById("pArea").appendChild(textnode);
+          textnode = document.createTextNode(ratingSystem);
+          document.getElementById("pRating").appendChild(textnode);
+          textnode = document.createTextNode(ptype);
+          document.getElementById("pType").appendChild(textnode);
+          
           $.getJSON('https://leedonline-api.usgbc.org/v1/Common/getPriceRelatedInfo.json?countryOrCurrency=' + country, function (infodata) {
               var currency = infodata.data.currency;
               var curSymbol;

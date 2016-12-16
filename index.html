@@ -33,7 +33,9 @@
                             <br>
                             <div class="form-group input-group"> <span class="input-group-addon"><i id="country-icon" class="fa fa-globe"></i></span>
                                 <select class="form-control" onchange="print_state('state',this.options[this.selectedIndex].value);" id="country" name="country" required></select>
-                                <script language="javascript">  print_country("country"); </script>
+                                <script language="javascript">
+                                    print_country("country");
+                                </script>
                             </div>
                             <div id="state-option" class="form-group input-group hidden"> <span class="input-group-addon"><i class="fa fa-globe"></i></span>
                                 <select class="form-control" name="state" id="state"></select>
@@ -66,6 +68,9 @@
                     <button type="button" class="close modal-close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Leep Pricing Estimate</h4> </div>
                 <div class="modal-body">
+                    <p id="pArea"><strong>Area : </strong></p>
+                    <p id="pRating"><strong>Rating System: </strong></p>
+                    <p id="pType"><strong>Project Type : </strong></p>
                     <table class="table table-striped">
                         <thead>
                             <tr>
