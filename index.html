@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Leed Pricing Calculator</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Dosis%7COpen+Sans%7CRoboto:300,400" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="assets/css/style.css">
+        <script src="assets/js/main.js"></script>
+    </head>
+    <body onload="resetFormData()">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 text-center">
+                    <div class="logo margin-top-30">
+                        <h1 id="head1"> <img  src="assets/logo/seal.png" alt="Leed">
+                        Pricing Calculator
+                        </h1>
+                    </div>
+                    <br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading"> <strong>Enter Leed Pricing Estimate </strong> </div>
+                        <div class="panel-body">
+                            <form name="form" id="leedprice" action="javascript:void(0)">
+                                <br>
+                               <div class="form-group input-group"> <span class="input-group-addon"><i id="country-icon" class="fa fa-globe"></i></span>
+                                  <select class="form-control required" id="country" name="country"  required oninvalid="checkValidationInput(this,'country')" onchange="verifyValidInput(this,'country')">
+                                  <option value="">--Select Country--</option>
+                                  </select>
+                                  <script>
+                                  print_country("country");
+                                  </script>
+                              </div>
+
+                              <div class="form-group input-group"> <span class="input-group-addon"><i class="fa fa-star" aria-hidden="true"></i></span>
+                                 <select class="form-control required" id="ratingSystem" name="ratingSystem" onchange="verifyValidInput(this,'ratingSystem')" required oninvalid="checkValidationInput(this,'ratingSystem')">
+                                  <option value="">--Select Rating Sytem--</option>
+                                  <option value="BD+C">Building Design and Construction (BD+C)</option>
+                                  <option value="ID+C">Interior Design and Construction (ID+C)</option>
+                                  <option value="O+M">Building Operations and Maintenance (O+M)</option>
+                                 </select>
+                             </div>
+
+                             <div class="form-group input-group"> <span class="input-group-addon"><i class="fa fa-file-text" aria-hidden="true"></i></span>
+                               <select class="form-control required" id="type" name="type" onchange="verifyValidInput(this,'type')" required oninvalid="checkValidationInput(this,'type')">
+                                 <option value="">--Select Rate Type--</option>
+                              </select>
+                             </div>
+                             
+                             <div class="form-group input-group"> <span class="input-group-addon"><i class="fa fa-object-group" aria-hidden="true"></i></span>
+                              <input type="number" id="givenArea" value="" name="givenArea" class="form-control required" placeholder="Enter area in Square Feet" onchange="verifyValidInput(this,'givenArea')" required oninvalid="checkValidationInput(this,'givenArea')"> 
+                             </div>
+                           
+                            <div class="form-group">
+                              <button class="btn btn-primary" type="submit" name="submit" id="submit-calculate"> <i class="fa fa-calculator" aria-hidden="true"></i> Calculate</button>
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-danger" onclick="resetFormData()">Reset</button> 
+                            </div>
+                            </div>
+                         </form>
+                       </div>
+                     </div>
+                    </div>
+                 </div>
+            </div>
+
+<div class="modal fade" id="modalpopup" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close modal-close" data-dismiss="modal">&times;</button>
+            <h4 id="head4" class="modal-title text-success">LEED Pricing Estimate</h4> </div>
+            <div class="modal-body">
+                <p id="pDesc1"><strong>Area : </strong><span id="pArea"></span></p>
+                <p id="pDesc2"><strong>Rating System : </strong><span id="pRating"></span></p>
+                <p id="pDesc3"><strong>Project Type : </strong><span id="pType"></span></p>
+                <table class="table table-striped" id="datatable">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th class="text-right">USGBC member</th>
+                            <th class="text-right">Regular Price</th>
+                        </tr>
+                    </thead>
+                <tbody id="tablebody"> </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <span class="pull-left">
+                <button class="btn btn-warning" onclick="printData()">Print <i class="fa fa-print" aria-hidden="true"></i>
+                </button>
+            </span>
+            <button type="button" class="btn btn-danger modal-close" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+</div>
+</div>
+<div class="modal fade" id="modalerror" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close modal-close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title text-danger">Data Error</h4> </div>
+            <div class="modal-body">
+                <p><strong>Cannot calculate, Input Data Error.</strong></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger modal-close" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
